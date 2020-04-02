@@ -1,0 +1,38 @@
+﻿@model Popis.Models.Skeniranje
+@{
+    ViewBag.Title = @Lokalizacija.Languages.langres.PregledSkeniranihKolicina;
+}
+    <h2>@Lokalizacija.Languages.langres.PregledSkeniranihKolicina</h2>
+
+    <table class="table table-bordered">
+        <thead class=".thead-light">
+            <tr>
+                <th scope="col">@Lokalizacija.Languages.langres.IDSkeniranje</th>
+                <th scope="col">@Lokalizacija.Languages.langres.OznakaMaterijala</th>
+                <th scope="col">@Lokalizacija.Languages.langres.Kolicina</th>
+                <th scope="col">@Lokalizacija.Languages.langres.Komentar</th>
+                <th scope="col">@Lokalizacija.Languages.langres.DatumIVremeSkeniranja</th>
+                <th scope="col">@Lokalizacija.Languages.langres.Opcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.SkeniranjeList.Count; i++)
+            {
+                <tr>
+                    <td>@Model.SkeniranjeList[i].IDSkeniranje</td>
+                    <td>@Model.SkeniranjeList[i].OznakaMaterijala</td>
+                    <td>@Model.SkeniranjeList[i].Kolicina</td>
+                    <td>@Model.SkeniranjeList[i].Komentar</td>
+                    <td>@Model.SkeniranjeList[i].DatumVremeSkeniranja</td>
+                    <td>
+                        <a href="/Skeniranje/ObrisiSkeniranje?IDSkeniranje=@Model.SkeniranjeList[i].IDSkeniranje" onclick="return validate();"><button type="button" class="btn btn-outline-dark">@Lokalizacija.Languages.langres.Brisanje</button></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        </table>
+
+
+        <script src='@Url.Content("~/Scripts/jquery-1.8.2.js")' type='text/javascript'></script>
+        <script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
+        <script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>

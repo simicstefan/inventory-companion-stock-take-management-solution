@@ -1,0 +1,20 @@
+﻿@model Popis.Models.Jezik
+@{
+    ViewBag.Title = "Jezik";
+}
+
+
+<br />
+<h2>Choose your language</h2>
+<hr />
+
+<button type="button" class="btn btn-outline-dark btn-lg btn-block" onclick="location.href='@Url.Action("IzaberiJezik","Jezik")?IDJezik=4'"><span class="cil-contrast btn-icon mr-2"></span>Deutsch</button>
+<button type="button" class="btn btn-outline-dark btn-lg btn-block" onclick="location.href='@Url.Action("IzaberiJezik","Jezik")?IDJezik=2'">English</button>
+<button type="button" class="btn btn-outline-dark btn-lg btn-block" onclick="location.href='@Url.Action("IzaberiJezik","Jezik")?IDJezik=3'">Français</button>
+<button type="button" class="btn btn-outline-dark btn-lg btn-block" onclick="location.href='@Url.Action("IzaberiJezik","Jezik")?IDJezik=1'">Srpski</button>
+
+
+<script src='@Url.Content("~/Scripts/jquery-1.8.2.js")' type='text/javascript'></script>
+<script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
+<script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>
+
