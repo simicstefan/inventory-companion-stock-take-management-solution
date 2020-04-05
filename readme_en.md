@@ -7,7 +7,7 @@
 Project developed in C# ASP .NET MVC 5 technology with SQL Server. It is used for inventory taking in a reputable production company. Its goal is to introduce a centralized place for inventory data and to produce more accurate results.
 
 Press to access:
-[live site version](link " live site version ")
+[live site version](link " live site version ") /
 [database script](link "database script") /
 [.bak database file](link-raw=true ".bak database file") /
 
