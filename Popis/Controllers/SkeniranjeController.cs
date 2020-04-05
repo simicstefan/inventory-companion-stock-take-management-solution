@@ -43,6 +43,7 @@ namespace Popis.Controllers
             catch
             {
                 ModelState.AddModelError("", Lokalizacija.Languages.langres.MaterijalPodTomOznakomNePostoji);
+                model.DajSveSkeniranoZaKorisnika();
             }
             return View("DodajSkeniranje", model);
         }

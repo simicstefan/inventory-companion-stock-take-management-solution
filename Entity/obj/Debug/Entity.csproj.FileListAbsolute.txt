@@ -32,3 +32,15 @@ C:\Users\Stefan\source\repos\BitbucketPopis\Popis\Entity\obj\Debug\Entity.csproj
 C:\Users\Stefan\source\repos\BitbucketPopis\Popis\Entity\obj\Debug\Entity.csproj.CopyComplete
 C:\Users\Stefan\source\repos\BitbucketPopis\Popis\Entity\obj\Debug\Entity.dll
 C:\Users\Stefan\source\repos\BitbucketPopis\Popis\Entity\obj\Debug\Entity.pdb
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Debug\Entity.dll
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Debug\Entity.pdb
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Debug\Lokalizacija.dll
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Debug\Lokalizacija.pdb
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Debug\de\Lokalizacija.resources.dll
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Debug\en\Lokalizacija.resources.dll
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Debug\fr\Lokalizacija.resources.dll
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\obj\Debug\Entity.csprojAssemblyReference.cache
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\obj\Debug\Entity.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\obj\Debug\Entity.csproj.CopyComplete
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\obj\Debug\Entity.dll
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\obj\Debug\Entity.pdb

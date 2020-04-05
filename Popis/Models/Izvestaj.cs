@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using ClosedXML.Excel;
 using Entity;
 
 namespace Popis.Models
@@ -30,6 +31,15 @@ namespace Popis.Models
                 IzvestajList.Add(ent);
             }
 
+        }
+
+        public void IzvozUExcel()
+        {
+            string folder = HttpContext.Current.Server.MapPath("~/Excel/excel.xlsx");
+            DataTable dt = DAL.DALSkeniranje.DajIzvestaj();
+            XLWorkbook wb = new XLWorkbook();
+            var vs = wb.Worksheets.Add(dt, "excel");
+            wb.SaveAs(folder);
         }
     }
 }

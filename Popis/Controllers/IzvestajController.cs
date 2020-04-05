@@ -22,5 +22,12 @@ namespace Popis.Controllers
             return View("Izvestaj", model);
         }
 
+        public ActionResult IzvozUExcel()
+        {
+            Izvestaj model = new Izvestaj();
+            model.IzvozUExcel();
+            return RedirectToAction("DajIzvestaj");
+        }
+
     }
 }
