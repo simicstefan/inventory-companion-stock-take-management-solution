@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Principal;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
-using System.Threading;
-using Lokalizacija;
-using Entity;
-using System.Globalization;
 
 namespace Popis
 {
@@ -27,8 +24,8 @@ namespace Popis
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             //sr-Latn-CS
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sr");
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("sr");
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("de");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de");
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
@@ -38,18 +35,19 @@ namespace Popis
             if (Session["Jezik"] == null)
             {
                 culture = "en";
-            } else
+            }
+            else
             {
                 culture = Session["Jezik"].ToString();
             }
-            
+
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(culture);
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(culture);
         }
 
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
-            
+
 
             if (HttpContext.Current.User != null)
             {

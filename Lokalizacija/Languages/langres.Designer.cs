@@ -178,6 +178,15 @@ namespace Lokalizacija.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jezik.
+        /// </summary>
+        public static string Jezik {
+            get {
+                return ResourceManager.GetString("Jezik", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Količina.
         /// </summary>
         public static string Kolicina {
@@ -273,6 +282,15 @@ namespace Lokalizacija.Languages {
         public static string NeophodnoJeUnetiPotvrduKolicine {
             get {
                 return ResourceManager.GetString("NeophodnoJeUnetiPotvrduKolicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odaberite jezik.
+        /// </summary>
+        public static string OdaberiJezik {
+            get {
+                return ResourceManager.GetString("OdaberiJezik", resourceCulture);
             }
         }
         

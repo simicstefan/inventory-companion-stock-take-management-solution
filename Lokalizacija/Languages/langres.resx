@@ -156,6 +156,9 @@
   <data name="IzvozUExcel" xml:space="preserve">
     <value>Izvoz u Excel</value>
   </data>
+  <data name="Jezik" xml:space="preserve">
+    <value>Jezik</value>
+  </data>
   <data name="Kolicina" xml:space="preserve">
     <value>Količina</value>
   </data>
@@ -188,6 +191,9 @@
   </data>
   <data name="NeophodnoJeUnetiPotvrduKolicine" xml:space="preserve">
     <value>Neophodno je uneti potvrdu količine.</value>
+  </data>
+  <data name="OdaberiJezik" xml:space="preserve">
+    <value>Odaberite jezik</value>
   </data>
   <data name="OdjavaKorisnika" xml:space="preserve">
     <value>Odjava korisnika</value>

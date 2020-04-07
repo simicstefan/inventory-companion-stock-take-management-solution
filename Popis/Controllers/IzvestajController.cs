@@ -22,11 +22,10 @@ namespace Popis.Controllers
             return View("Izvestaj", model);
         }
 
-        public ActionResult IzvozUExcel()
+        public FileResult IzvozUExcel()
         {
             Izvestaj model = new Izvestaj();
-            model.IzvozUExcel();
-            return RedirectToAction("DajIzvestaj");
+            return File(model.IzvozUExcel(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         }
 
     }

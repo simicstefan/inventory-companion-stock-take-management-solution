@@ -38,6 +38,7 @@ namespace Popis.Models
             return ListaProjekata;
         }
 
+
         public List<SelectListItem> PopuniListuZonaCmb()
         {
             ListaZona = new List<SelectListItem>();

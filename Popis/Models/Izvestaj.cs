@@ -33,13 +33,34 @@ namespace Popis.Models
 
         }
 
-        public void IzvozUExcel()
+        public byte[] IzvozUExcel()
         {
-            string folder = HttpContext.Current.Server.MapPath("~/Excel/excel.xlsx");
+            DateTime datumvreme = new DateTime();
+            string naziv = "izvestaj popis";
+            string folder = HttpContext.Current.Server.MapPath("~/Excel/" + naziv + ".xlsx");
             DataTable dt = DAL.DALSkeniranje.DajIzvestaj();
             XLWorkbook wb = new XLWorkbook();
-            var vs = wb.Worksheets.Add(dt, "excel");
+            wb.Worksheets.Add(dt, "excel");
             wb.SaveAs(folder);
+            return GetFile(folder);
+                  
         }
+
+        byte[] GetFile(string s)
+        {
+            System.IO.FileStream fs = System.IO.File.OpenRead(s);
+            byte[] data = new byte[fs.Length];
+            int br = fs.Read(data, 0, data.Length);
+            if (br != fs.Length)
+                throw new System.IO.IOException(s);
+            fs.Close();
+
+            var uri = new Uri(s, UriKind.Absolute);
+            System.IO.File.Delete(uri.LocalPath);
+
+
+            return data;
+        }
+
     }
 }
