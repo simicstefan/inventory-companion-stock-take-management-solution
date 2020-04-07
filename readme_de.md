@@ -5,7 +5,9 @@
 [Srpski]( https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/readme_sr.md "srpski") ||
 
 Projekt entwickelt in C # ASP .NET MVC 5-Technologie mit SQL Server. Es wird für die Bestandsaufnahme in einer seriösen Produktionsfirma verwendet. Ziel ist es, einen zentralen Ort für Inventardaten einzuführen und genauere Ergebnisse zu erzielen.
-Drücken Sie, um auf Folgendes zuzugreifen: 
+
+Drücken Sie, um auf Folgendes zuzugreifen:
+
 [Live-Site-Version](http://simicstefan10-001-site2.btempurl.com/ "Live-Site-Version") /
 [Datenbankskript](https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/_database-script.rtf " Datenbankskript ") /
 [.bak Datenbankdatei](https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/Popis.bak?raw=true "[.bak Datenbankdatei ") /
