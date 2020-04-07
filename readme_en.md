@@ -9,6 +9,7 @@
 Project developed in C# ASP .NET MVC 5 technology with SQL Server. It is used for inventory taking in a reputable production company. Its goal is to introduce a centralized place for inventory data and to produce more accurate results.
 
 Press to access:
+
 [live site version](http://simicstefan10-001-site2.btempurl.com/ " live site version ") /
 [database script](https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/_database-script.rtf "database script") /
 [.bak database file](https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/Popis.bak?raw=true ".bak database file") /
