@@ -6,7 +6,7 @@
 [Français]( https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/readme_fr.md "fran‡ais") ||
 [Srpski]( https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/readme_sr.md "srpski") ||
 
-Projekat napravljen u C# ASP .NET MVC 5 tehnologiji sa SQL Serverom. Projekat se koristi za popisivanje zaliha u proizvodnoj kompaniji. Ima za cilj uvođenje centralizovane lokacije za podatke sa popisa i za ostvarenje tačnijeg unosa podataka.
+Projekat napravljen u C# ASP .NET MVC 5 tehnologiji sa SQL Serverom. Koristi se za popisivanje zaliha u proizvodnoj kompaniji. Ima za cilj uvođenje centralizovane lokacije za podatke sa popisa i za ostvarenje tačnijeg unosa podataka.
 
 Kliknite kako biste pristupili: 
 
