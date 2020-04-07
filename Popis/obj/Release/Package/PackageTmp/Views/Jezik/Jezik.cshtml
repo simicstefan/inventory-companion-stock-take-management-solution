@@ -1,11 +1,11 @@
 ﻿@model Popis.Models.Jezik
 @{
-    ViewBag.Title = "Jezik";
+    ViewBag.Title = Lokalizacija.Languages.langres.Jezik;
 }
 
 
 <br />
-<h2>Choose your language</h2>
+<h2>@Lokalizacija.Languages.langres.OdaberiJezik</h2>
 <hr />
 
 <button type="button" class="btn btn-outline-dark btn-lg btn-block" onclick="location.href='@Url.Action("IzaberiJezik","Jezik")?IDJezik=4'"><span class="cil-contrast btn-icon mr-2"></span>Deutsch</button>

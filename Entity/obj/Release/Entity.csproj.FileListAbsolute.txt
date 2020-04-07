@@ -21,3 +21,15 @@ C:\Users\Stefan\source\repos\BitbucketPopis\Popis\Entity\obj\Release\Entity.cspr
 C:\Users\Stefan\source\repos\BitbucketPopis\Popis\Entity\obj\Release\Entity.csproj.CopyComplete
 C:\Users\Stefan\source\repos\BitbucketPopis\Popis\Entity\obj\Release\Entity.dll
 C:\Users\Stefan\source\repos\BitbucketPopis\Popis\Entity\obj\Release\Entity.pdb
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Release\Entity.dll
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Release\Entity.pdb
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Release\Lokalizacija.dll
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Release\Lokalizacija.pdb
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Release\de\Lokalizacija.resources.dll
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Release\en\Lokalizacija.resources.dll
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\bin\Release\fr\Lokalizacija.resources.dll
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\obj\Release\Entity.csprojAssemblyReference.cache
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\obj\Release\Entity.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\obj\Release\Entity.csproj.CopyComplete
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\obj\Release\Entity.dll
+C:\Users\Stefan\Source\Repos\inventory-companion-stock-take-management-solution\Entity\obj\Release\Entity.pdb

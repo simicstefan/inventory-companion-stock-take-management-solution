@@ -2,23 +2,17 @@
 <html>
 <head>
     <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>@ViewBag.Title - @Lokalizacija.Languages.langres.AplikacijaZaPopisOtvorenihKolicina</title>
-    @*@Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")*@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
 </head>
 <body>
-
-
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
          <img src="~/Content/stock-take-logo.png" width="25" height="25" class="d-inline-block align-top" alt=""> 
         <a class="navbar-brand" href="#">@Lokalizacija.Languages.langres.AplikacijaZaPopisOtvorenihKolicina</a>
@@ -28,66 +22,37 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    @if (ViewContext.HttpContext.User.IsInRole("Prijavljen"))
-                    {
-                        <a class="nav-link" href="@Url.Action("Odjava", "Prijava")">@Lokalizacija.Languages.langres.OdjavaKorisnika<span class="sr-only">(current)</span></a>
-                    }
-                </li>
-                <li class="nav-item active">
-                    @if (ViewContext.HttpContext.User.IsInRole("Prijavljen"))
-                    {
-                    <a class="nav-link" href="@Url.Action("DajIzvestaj", "Izvestaj")">@Lokalizacija.Languages.langres.Izvestaj<span class="sr-only">(current)</span></a>
-                    }
-                </li>
 
+                <li class="nav-item active">
+                    @if (ViewContext.HttpContext.User.IsInRole("Prijavljen"))
+                    {
+                        <a class="nav-link" href="@Url.Action("DodajSkeniranjeView", "Skeniranje")"><button type="button" class="btn btn-outline-dark">@Lokalizacija.Languages.langres.DodavanjeSkeniranja</button></a>
+                    }
+                </li>
+                <li class="nav-item active">
+                    @if (ViewContext.HttpContext.User.IsInRole("Prijavljen"))
+                    {
+                        <a class="nav-link" href="@Url.Action("DajIzvestaj", "Izvestaj")"><button type="button" class="btn btn-outline-dark">@Lokalizacija.Languages.langres.Izvestaj</button></a>
+                    }
+                </li>
             </ul>
-            @*<form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>*@
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    @if (ViewContext.HttpContext.User.IsInRole("Prijavljen"))
+                    {
+                        <a href="@Url.Action("Odjava", "Prijava")"><button type="button" class="btn btn-dark">@Lokalizacija.Languages.langres.OdjavaKorisnika</button></a>
+                    }
+                </li>
+            </ul>
         </div>
     </nav>
 
-
-
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Popis 2020", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Prijava korisnika", "PrijavaKorisnikaView", "Skeniranje")</li>
-                        <li>@Html.ActionLink("Lista skeniranja", "DajSveSkeniranoZaKorisnika", "Skeniranje")</li>
-                        <li>@Html.ActionLink("Dodavanje skeniranja", "DodajSkeniranjeView", "Skeniranje")</li>
-                    <li>@Html.ActionLink("Odjava", "Odjava", "Prijava")</li>
-                    <li><p style="color:white;">@Session["IDKorisnik"]</p></li>
-                </ul>
-            </div>
-        </div>
-    </div>*@
-
-
-
-
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        @*<footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>*@
+        @*<hr />
+        <footer>
+                <p>&copy; @DateTime.Now.Year - Stefan Simić</p>
+        </footer>*@
     </div>
-
-    @*@Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)*@
-
 </body>
 </html>

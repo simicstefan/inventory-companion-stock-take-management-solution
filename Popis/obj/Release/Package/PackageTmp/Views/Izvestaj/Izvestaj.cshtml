@@ -2,29 +2,35 @@
 @{
     ViewBag.Title = @Lokalizacija.Languages.langres.IzvestajOSkeniranimKolicinama;
 }
-    <br />
-    <h2>@Lokalizacija.Languages.langres.IzvestajOSkeniranimKolicinama</h2>
-    <hr />
-    <table class="table table-bordered">
-        <thead class=".thead-light">
+<br />
+<h2>@Lokalizacija.Languages.langres.IzvestajOSkeniranimKolicinama</h2>
+<hr />
+
+<p>
+    <a href="/izvestaj/IzvozUExcel">@Lokalizacija.Languages.langres.IzvozUExcel</a>
+</p>
+
+
+<table class="table table-bordered">
+    <thead class=".thead-light">
+        <tr>
+            <th scope="col">@Lokalizacija.Languages.langres.OznakaMaterijala</th>
+            <th scope="col">@Lokalizacija.Languages.langres.Kolicina</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.IzvestajList.Count; i++)
+        {
             <tr>
-                <th scope="col">@Lokalizacija.Languages.langres.OznakaMaterijala</th>
-                <th scope="col">@Lokalizacija.Languages.langres.Kolicina</th>
+                <td>@Model.IzvestajList[i].OznakaMaterijala</td>
+                <td>@Model.IzvestajList[i].Kolicina</td>
+
             </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.IzvestajList.Count; i++)
-            {
-                <tr>
-                    <td>@Model.IzvestajList[i].OznakaMaterijala</td>
-                    <td>@Model.IzvestajList[i].Kolicina</td>
-
-                </tr>
-            }
-        </tbody>
-        </table>
+        }
+    </tbody>
+</table>
 
 
-        <script src='@Url.Content("~/Scripts/jquery-1.8.2.js")' type='text/javascript'></script>
-        <script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
-        <script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>
+<script src='@Url.Content("~/Scripts/jquery-1.8.2.js")' type='text/javascript'></script>
+<script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
+<script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>

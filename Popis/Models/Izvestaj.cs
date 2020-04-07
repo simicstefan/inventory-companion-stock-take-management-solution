@@ -54,11 +54,8 @@ namespace Popis.Models
             if (br != fs.Length)
                 throw new System.IO.IOException(s);
             fs.Close();
-            //
             var uri = new Uri(s, UriKind.Absolute);
             System.IO.File.Delete(uri.LocalPath);
-
-
             return data;
         }
 
