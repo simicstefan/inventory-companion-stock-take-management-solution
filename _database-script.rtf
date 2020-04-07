@@ -1,0 +1,1046 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset238 Calibri;}}
+{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 USE [master]\par
+GO\par
+/****** Object:  Database [Popis]    Script Date: 07-Apr-20 21:13:10 ******/\par
+CREATE DATABASE [Popis]\par
+ CONTAINMENT = NONE\par
+ ON  PRIMARY \par
+( NAME = N'DB_A56285_popis_Data', FILENAME = N'C:\\Program Files\\Microsoft SQL Server\\MSSQL13.MSSQLSERVER\\MSSQL\\DATA\\DB_A56285_popis_DATA.mdf' , SIZE = 25408KB , MAXSIZE = 1024000KB , FILEGROWTH = 10%)\par
+ LOG ON \par
+( NAME = N'DB_A56285_popis_Log', FILENAME = N'C:\\Program Files\\Microsoft SQL Server\\MSSQL13.MSSQLSERVER\\MSSQL\\DATA\\DB_A56285_popis_Log.LDF' , SIZE = 164544KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)\par
+GO\par
+ALTER DATABASE [Popis] SET COMPATIBILITY_LEVEL = 130\par
+GO\par
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))\par
+begin\par
+EXEC [Popis].[dbo].[sp_fulltext_database] @action = 'enable'\par
+end\par
+GO\par
+ALTER DATABASE [Popis] SET ANSI_NULL_DEFAULT OFF \par
+GO\par
+ALTER DATABASE [Popis] SET ANSI_NULLS OFF \par
+GO\par
+ALTER DATABASE [Popis] SET ANSI_PADDING OFF \par
+GO\par
+ALTER DATABASE [Popis] SET ANSI_WARNINGS OFF \par
+GO\par
+ALTER DATABASE [Popis] SET ARITHABORT OFF \par
+GO\par
+ALTER DATABASE [Popis] SET AUTO_CLOSE OFF \par
+GO\par
+ALTER DATABASE [Popis] SET AUTO_SHRINK OFF \par
+GO\par
+ALTER DATABASE [Popis] SET AUTO_UPDATE_STATISTICS ON \par
+GO\par
+ALTER DATABASE [Popis] SET CURSOR_CLOSE_ON_COMMIT OFF \par
+GO\par
+ALTER DATABASE [Popis] SET CURSOR_DEFAULT  GLOBAL \par
+GO\par
+ALTER DATABASE [Popis] SET CONCAT_NULL_YIELDS_NULL OFF \par
+GO\par
+ALTER DATABASE [Popis] SET NUMERIC_ROUNDABORT OFF \par
+GO\par
+ALTER DATABASE [Popis] SET QUOTED_IDENTIFIER OFF \par
+GO\par
+ALTER DATABASE [Popis] SET RECURSIVE_TRIGGERS OFF \par
+GO\par
+ALTER DATABASE [Popis] SET  DISABLE_BROKER \par
+GO\par
+ALTER DATABASE [Popis] SET AUTO_UPDATE_STATISTICS_ASYNC OFF \par
+GO\par
+ALTER DATABASE [Popis] SET DATE_CORRELATION_OPTIMIZATION OFF \par
+GO\par
+ALTER DATABASE [Popis] SET TRUSTWORTHY OFF \par
+GO\par
+ALTER DATABASE [Popis] SET ALLOW_SNAPSHOT_ISOLATION OFF \par
+GO\par
+ALTER DATABASE [Popis] SET PARAMETERIZATION SIMPLE \par
+GO\par
+ALTER DATABASE [Popis] SET READ_COMMITTED_SNAPSHOT OFF \par
+GO\par
+ALTER DATABASE [Popis] SET HONOR_BROKER_PRIORITY OFF \par
+GO\par
+ALTER DATABASE [Popis] SET RECOVERY FULL \par
+GO\par
+ALTER DATABASE [Popis] SET  MULTI_USER \par
+GO\par
+ALTER DATABASE [Popis] SET PAGE_VERIFY CHECKSUM  \par
+GO\par
+ALTER DATABASE [Popis] SET DB_CHAINING OFF \par
+GO\par
+ALTER DATABASE [Popis] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) \par
+GO\par
+ALTER DATABASE [Popis] SET TARGET_RECOVERY_TIME = 60 SECONDS \par
+GO\par
+ALTER DATABASE [Popis] SET DELAYED_DURABILITY = DISABLED \par
+GO\par
+EXEC sys.sp_db_vardecimal_storage_format N'Popis', N'ON'\par
+GO\par
+ALTER DATABASE [Popis] SET QUERY_STORE = OFF\par
+GO\par
+USE [Popis]\par
+GO\par
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;\par
+GO\par
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;\par
+GO\par
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;\par
+GO\par
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;\par
+GO\par
+USE [Popis]\par
+GO\par
+/****** Object:  UserDefinedFunction [dbo].[GetDateTimePopis]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+-- =============================================\par
+-- Author:\tab\tab <Author,,Name>\par
+-- Create date: <Create Date, ,>\par
+-- Description:\tab <Description, ,>\par
+-- =============================================\par
+CREATE FUNCTION [dbo].[GetDateTimePopis]\par
+(\par
+\tab -- Add the parameters for the function here\par
+\tab\par
+)\par
+RETURNS DateTime\par
+AS\par
+BEGIN\par
+\tab DECLARE @DatumVreme datetime\par
+\tab SET @DatumVreme\tab  = DATEADD(HOUR, 8, GETDATE())\par
+\tab -- Return the result of the function\par
+\tab RETURN @DatumVreme\par
+\par
+\par
+END\par
+GO\par
+/****** Object:  UserDefinedFunction [dbo].[NadjiIDMaterijalaPrekoOznake]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+-- =============================================\par
+-- Author:\tab\tab <Author,,Name>\par
+-- Create date: <Create Date, ,>\par
+-- Description:\tab <Description, ,>\par
+-- =============================================\par
+CREATE FUNCTION [dbo].[NadjiIDMaterijalaPrekoOznake]\par
+(\par
+\tab -- Add the parameters for the function here\par
+\tab @OznakaMaterijala nvarchar(50)\par
+)\par
+RETURNS int\par
+AS\par
+BEGIN\par
+\tab -- Declare the return variable here\par
+\tab DECLARE @IDMaterijal int\par
+\par
+\tab -- Add the T-SQL statements to compute the return value here\par
+\tab IF EXISTS (SELECT IDMaterijal FROM Materijal WHERE OznakaMaterijala = @OznakaMaterijala)\par
+\tab BEGIN\par
+\tab\tab SET @IDMaterijal = (SELECT IDMaterijal FROM Materijal WHERE OznakaMaterijala = @OznakaMaterijala)\par
+\tab END\par
+\tab ELSE\par
+\tab BEGIN\par
+\tab\tab SET @IDMaterijal = 0\par
+\tab END\par
+\par
+\tab -- Return the result of the function\par
+\tab RETURN @IDMaterijal\par
+\par
+END\par
+GO\par
+/****** Object:  Table [dbo].[Zona]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+CREATE TABLE [dbo].[Zona](\par
+\tab [IDZona] [int] IDENTITY(1,1) NOT NULL,\par
+\tab [NazivZone] [nvarchar](50) NOT NULL,\par
+ CONSTRAINT [PK_Zona] PRIMARY KEY CLUSTERED \par
+(\par
+\tab [IDZona] ASC\par
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]\par
+) ON [PRIMARY]\par
+GO\par
+/****** Object:  Table [dbo].[Projekat]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+CREATE TABLE [dbo].[Projekat](\par
+\tab [IDProjekat] [int] IDENTITY(1,1) NOT NULL,\par
+\tab [NazivProjekta] [nvarchar](50) NOT NULL,\par
+ CONSTRAINT [PK_Projekat] PRIMARY KEY CLUSTERED \par
+(\par
+\tab [IDProjekat] ASC\par
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]\par
+) ON [PRIMARY]\par
+GO\par
+/****** Object:  View [dbo].[ProjekatZona]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+CREATE VIEW [dbo].[ProjekatZona]\par
+AS\par
+SELECT        TOP (100) PERCENT p.NazivProjekta, z.NazivZone\par
+FROM            dbo.Projekat AS p INNER JOIN\par
+                         dbo.ZonaProjekat AS zp ON zp.IDProjekat = p.IDProjekat INNER JOIN\par
+                         dbo.Zona AS z ON zp.IDZona = z.IDZona\par
+ORDER BY p.NazivProjekta\par
+GO\par
+/****** Object:  Table [dbo].[Materijal]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+CREATE TABLE [dbo].[Materijal](\par
+\tab [IDMaterijal] [int] IDENTITY(1,1) NOT NULL,\par
+\tab [OznakaMaterijala] [nvarchar](50) NOT NULL,\par
+\tab [OpisMaterijala] [nvarchar](250) NULL,\par
+ CONSTRAINT [PK_Materijal2] PRIMARY KEY CLUSTERED \par
+(\par
+\tab [IDMaterijal] ASC\par
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]\par
+) ON [PRIMARY]\par
+GO\par
+/****** Object:  Table [dbo].[Korisnik]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+CREATE TABLE [dbo].[Korisnik](\par
+\tab [IDKorisnik] [int] IDENTITY(1,1) NOT NULL,\par
+\tab [IDKartica] [int] NOT NULL,\par
+\tab [Ime] [nvarchar](50) NULL,\par
+\tab [Prezime] [nvarchar](50) NULL,\par
+ CONSTRAINT [PK_Korisnik] PRIMARY KEY CLUSTERED \par
+(\par
+\tab [IDKorisnik] ASC\par
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]\par
+) ON [PRIMARY]\par
+GO\par
+/****** Object:  Table [dbo].[Skeniranje]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+CREATE TABLE [dbo].[Skeniranje](\par
+\tab [IDSkeniranje] [int] IDENTITY(1,1) NOT NULL,\par
+\tab [IDKorisnik] [int] NOT NULL,\par
+\tab [IDMaterijal] [int] NOT NULL,\par
+\tab [Kolicina] [int] NOT NULL,\par
+\tab [DatumVremeSkeniranje] [datetime] NOT NULL,\par
+\tab [Komentar] [nvarchar](250) NULL,\par
+\tab [Neaktivan] [int] NOT NULL,\par
+\tab [DatumVremeUpdate] [datetime] NOT NULL,\par
+\tab [IDProjekat] [int] NOT NULL,\par
+\tab [IDZona] [int] NOT NULL,\par
+ CONSTRAINT [PK_Skeniranje] PRIMARY KEY CLUSTERED \par
+(\par
+\tab [IDSkeniranje] ASC\par
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]\par
+) ON [PRIMARY]\par
+GO\par
+/****** Object:  View [dbo].[SkeniranjeView]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+CREATE VIEW [dbo].[SkeniranjeView]\par
+AS\par
+SELECT        k.IDKartica, m.IDMaterijal, m.OznakaMaterijala, s.Kolicina, s.Komentar, s.DatumVremeSkeniranje\par
+FROM            dbo.Skeniranje AS s INNER JOIN\par
+                         dbo.Materijal AS m ON s.IDMaterijal = m.IDMaterijal INNER JOIN\par
+                         dbo.Korisnik AS k ON k.IDKorisnik = s.IDKorisnik\par
+GO\par
+/****** Object:  Table [dbo].[IstorijaPrijave]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+CREATE TABLE [dbo].[IstorijaPrijave](\par
+\tab [IDIstorijaPrijave] [int] IDENTITY(1,1) NOT NULL,\par
+\tab [IDKartica] [int] NOT NULL,\par
+\tab [DatumVreme] [datetime] NOT NULL,\par
+ CONSTRAINT [PK_IstorijaPrijave] PRIMARY KEY CLUSTERED \par
+(\par
+\tab [IDIstorijaPrijave] ASC\par
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]\par
+) ON [PRIMARY]\par
+GO\par
+SET IDENTITY_INSERT [dbo].[IstorijaPrijave] ON \par
+GO\par
+INSERT [dbo].[IstorijaPrijave] ([IDIstorijaPrijave], [IDKartica], [DatumVreme]) VALUES (1, 10029, CAST(N'2020-04-08T06:09:31.997' AS DateTime))\par
+GO\par
+SET IDENTITY_INSERT [dbo].[IstorijaPrijave] OFF\par
+GO\par
+SET IDENTITY_INSERT [dbo].[Korisnik] ON \par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (1, 10001, N'Bogdan', N'Avramovi\f1\'e6')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3040, 10002, N'Bo\'9ako', N'Ani\'e8i\'e6')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3041, 10003, N'Branko', N'Bajki\'e6')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3042, 10004, N'Branislav', N'Bosni\'e6')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3043, 10005, N'Darko', N'Vesic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3044, 10006, N'Dobrivoje', N'Gagic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3045, 10007, N'Dragoljub', N'Gajic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3046, 10008, N'Danijela', N'Geric')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3047, 10009, N'Divna', N'Gacic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3048, 10010, N'Dubravka', N'Demic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3049, 10011, N'Eva', N'\f0\'d0ekic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3050, 10012, N'\f1\'8eivanko', N'\f0\'d0uri\f1\'9aic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3051, 10013, N'\'8eeljka', N'Elcic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3052, 10014, N'Zlatiborka', N'Egaric')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3053, 10015, N'Isak', N'\'8eabic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3054, 10016, N'Janko', N'\'8eutic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3055, 10017, N'Jugoslav', N'Zaric')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3056, 10018, N'Jelisava', N'Ibric')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3057, 10019, N'Luka', N'Ivic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3058, 10020, N'Leonora', N'Ijacic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3059, 10021, N'Ljiljan', N'Janic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3060, 10022, N'Ljubosava', N'Janketic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3061, 10023, N'Marko', N'Jovic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3062, 10024, N'Mila\'9ain', N'Kandic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3063, 10025, N'Milovan', N'Kocic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3064, 10026, N'Miodrag', N'Kanaric')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3065, 10027, N'Maja', N'Krstic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3066, 10028, N'Monika', N'Milacic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3067, 10029, N'Nemanja', N'Njegic')\par
+GO\par
+INSERT [dbo].[Korisnik] ([IDKorisnik], [IDKartica], [Ime], [Prezime]) VALUES (3068, 10030, N'Natalija', N'Ojdanic')\par
+GO\par
+SET IDENTITY_INSERT [dbo].[Korisnik] OFF\par
+GO\par
+SET IDENTITY_INSERT [dbo].[Materijal] ON \par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240195, N'LM4458923', N'Triplex')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240196, N'LM4458924', N'Triplex')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240197, N'LM4458921', N'Triplex')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240198, N'LM4458925', N'Triplex')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240199, N'LM4458926', N'Triplex')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240200, N'LM4458929', N'Triplex')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240201, N'LM4458928', N'Triplex')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240202, N'LM4458922', N'Tripex')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240203, N'MF5763981', N'Main-feeder')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240204, N'MF5763982', N'Main-feeder')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240205, N'MF5763983', N'Main-feeder')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240206, N'MF5763984', N'Main-feeder')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240207, N'MF5763985', N'Main-feeder')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240208, N'MF5763986', N'Main-feeder')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240209, N'MF5763987', N'Main-feeder')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240210, N'PF73419301', N'Panel-feed')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240211, N'PF73419302', N'Panel-feed')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240212, N'PF73419303', N'Panel-feed')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240213, N'PF73419304', N'Panel-feed')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240214, N'PF73419305', N'Panel-feed')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240215, N'PF73419306', N'Panel-feed')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240216, N'PF73419307', N'Panel-feed')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240217, N'PF73419308', N'Panel-feed')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240218, N'SS09838471', N'Single-strand')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240219, N'SS09838472', N'Single-strand')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240221, N'SS09838473', N'Single-strand')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240222, N'SS09838474', N'Single-strand')\par
+GO\par
+INSERT [dbo].[Materijal] ([IDMaterijal], [OznakaMaterijala], [OpisMaterijala]) VALUES (240223, N'SS09838475', N'Single-strand')\par
+GO\par
+SET IDENTITY_INSERT [dbo].[Materijal] OFF\par
+GO\par
+SET IDENTITY_INSERT [dbo].[Projekat] ON \par
+GO\par
+INSERT [dbo].[Projekat] ([IDProjekat], [NazivProjekta]) VALUES (1, N'Chassis')\par
+GO\par
+INSERT [dbo].[Projekat] ([IDProjekat], [NazivProjekta]) VALUES (2, N'Cockpit')\par
+GO\par
+INSERT [dbo].[Projekat] ([IDProjekat], [NazivProjekta]) VALUES (3, N'Passenger cars')\par
+GO\par
+INSERT [dbo].[Projekat] ([IDProjekat], [NazivProjekta]) VALUES (4, N'Brake system')\par
+GO\par
+SET IDENTITY_INSERT [dbo].[Projekat] OFF\par
+GO\par
+SET IDENTITY_INSERT [dbo].[Skeniranje] ON \par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (218, 3068, 240196, 50, CAST(N'2020-03-31T03:21:40.883' AS DateTime), NULL, 0, CAST(N'2020-03-31T03:21:40.883' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (219, 3068, 240199, 25, CAST(N'2020-03-31T03:21:48.437' AS DateTime), NULL, 0, CAST(N'2020-03-31T03:21:48.437' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (220, 3068, 240207, 100, CAST(N'2020-03-31T03:21:52.930' AS DateTime), NULL, 0, CAST(N'2020-03-31T03:21:52.930' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (221, 3068, 240213, 75, CAST(N'2020-03-31T03:21:57.443' AS DateTime), NULL, 0, CAST(N'2020-03-31T03:21:57.443' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (222, 3068, 240213, 75, CAST(N'2020-03-31T03:22:03.177' AS DateTime), NULL, 0, CAST(N'2020-03-31T03:22:03.177' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (223, 3068, 240213, 100, CAST(N'2020-03-31T03:22:08.873' AS DateTime), NULL, 1, CAST(N'2020-03-31T17:45:01.470' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (224, 3068, 240213, 500, CAST(N'2020-03-31T17:45:18.580' AS DateTime), NULL, 0, CAST(N'2020-03-31T17:45:18.580' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (225, 3068, 240214, 25, CAST(N'2020-04-02T05:48:26.653' AS DateTime), N'commentaire', 0, CAST(N'2020-04-02T05:48:26.653' AS DateTime), 3, 38)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (231, 3067, 240198, 25, CAST(N'2020-04-06T03:47:29.467' AS DateTime), NULL, 0, CAST(N'2020-04-06T03:47:29.467' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (232, 3067, 240199, 50, CAST(N'2020-04-06T03:47:39.460' AS DateTime), NULL, 0, CAST(N'2020-04-06T03:47:39.460' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (233, 3067, 240203, 50, CAST(N'2020-04-06T03:47:44.593' AS DateTime), NULL, 0, CAST(N'2020-04-06T03:47:44.593' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (234, 3067, 240205, 50, CAST(N'2020-04-06T03:47:49.337' AS DateTime), NULL, 0, CAST(N'2020-04-06T03:47:49.337' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (235, 3067, 240207, 75, CAST(N'2020-04-06T03:47:55.510' AS DateTime), NULL, 0, CAST(N'2020-04-06T03:47:55.510' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (236, 3067, 240207, 150, CAST(N'2020-04-06T03:47:58.177' AS DateTime), NULL, 0, CAST(N'2020-04-06T03:47:58.177' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (237, 3067, 240207, 250, CAST(N'2020-04-06T03:48:00.847' AS DateTime), NULL, 0, CAST(N'2020-04-06T03:48:00.847' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (238, 3067, 240213, 25, CAST(N'2020-04-06T03:48:04.320' AS DateTime), NULL, 0, CAST(N'2020-04-06T03:48:04.320' AS DateTime), 1, 1)\par
+GO\par
+INSERT [dbo].[Skeniranje] ([IDSkeniranje], [IDKorisnik], [IDMaterijal], [Kolicina], [DatumVremeSkeniranje], [Komentar], [Neaktivan], [DatumVremeUpdate], [IDProjekat], [IDZona]) VALUES (239, 3067, 240195, 25, CAST(N'2020-04-08T05:06:14.750' AS DateTime), NULL, 0, CAST(N'2020-04-08T05:06:14.750' AS DateTime), 1, 1)\par
+GO\par
+SET IDENTITY_INSERT [dbo].[Skeniranje] OFF\par
+GO\par
+SET IDENTITY_INSERT [dbo].[Zona] ON \par
+GO\par
+INSERT [dbo].[Zona] ([IDZona], [NazivZone]) VALUES (1, N'Line 1')\par
+GO\par
+INSERT [dbo].[Zona] ([IDZona], [NazivZone]) VALUES (37, N'Line 2')\par
+GO\par
+INSERT [dbo].[Zona] ([IDZona], [NazivZone]) VALUES (38, N'Line 3')\par
+GO\par
+INSERT [dbo].[Zona] ([IDZona], [NazivZone]) VALUES (39, N'Line 4')\par
+GO\par
+INSERT [dbo].[Zona] ([IDZona], [NazivZone]) VALUES (40, N'Line 5')\par
+GO\par
+INSERT [dbo].[Zona] ([IDZona], [NazivZone]) VALUES (41, N'Line 6')\par
+GO\par
+INSERT [dbo].[Zona] ([IDZona], [NazivZone]) VALUES (42, N'Pre-assembly')\par
+GO\par
+INSERT [dbo].[Zona] ([IDZona], [NazivZone]) VALUES (43, N'Cutting')\par
+GO\par
+INSERT [dbo].[Zona] ([IDZona], [NazivZone]) VALUES (44, N'Rework')\par
+GO\par
+SET IDENTITY_INSERT [dbo].[Zona] OFF\par
+GO\par
+/****** Object:  StoredProcedure [dbo].[sp_DajSveProjekteZaCmb]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+-- =============================================\par
+-- Author:\tab\tab <Author,,Name>\par
+-- Create date: <Create Date,,>\par
+-- Description:\tab <Description,,>\par
+-- =============================================\par
+CREATE PROCEDURE [dbo].[sp_DajSveProjekteZaCmb]\par
+\tab -- Add the parameters for the stored procedure here\par
+\tab\par
+AS\par
+BEGIN\par
+\tab -- SET NOCOUNT ON added to prevent extra result sets from\par
+\tab -- interfering with SELECT statements.\par
+\tab SET NOCOUNT ON;\par
+\par
+    -- Insert statements for procedure here\par
+\tab SELECT * FROM Projekat\par
+END\par
+GO\par
+/****** Object:  StoredProcedure [dbo].[sp_DajSveSkenirano]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+-- =============================================\par
+-- Author:\tab\tab <Author,,Name>\par
+-- Create date: <Create Date,,>\par
+-- Description:\tab <Description,,>\par
+-- =============================================\par
+CREATE PROCEDURE [dbo].[sp_DajSveSkenirano]\par
+\tab -- Add the parameters for the stored procedure here\par
+\par
+AS\par
+BEGIN\par
+\tab -- SET NOCOUNT ON added to prevent extra result sets from\par
+\tab -- interfering with SELECT statements.\par
+\tab SET NOCOUNT ON;\par
+\par
+    -- Insert statements for procedure here\par
+\tab SELECT * FROM Skeniranje\par
+END\par
+GO\par
+/****** Object:  StoredProcedure [dbo].[sp_DajSveSkeniranoZaKorisnika]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+-- =============================================\par
+-- Author:\tab\tab <Author,,Name>\par
+-- Create date: <Create Date,,>\par
+-- Description:\tab <Description,,>\par
+-- =============================================\par
+CREATE PROCEDURE [dbo].[sp_DajSveSkeniranoZaKorisnika]\par
+\tab -- Add the parameters for the stored procedure here\par
+\tab @IDKorisnik int\par
+AS\par
+BEGIN\par
+\tab -- SET NOCOUNT ON added to prevent extra result sets from\par
+\tab -- interfering with SELECT statements.\par
+\tab SET NOCOUNT ON;\par
+\par
+    -- Insert statements for procedure here\par
+\tab SELECT sk.IDKorisnik, sk.IDMaterijal, sk.IDSkeniranje, m.OpisMaterijala, m.OznakaMaterijala, sk.Kolicina, sk.Komentar ,sk.DatumVremeSkeniranje FROM Skeniranje AS sk\par
+\tab\tab INNER JOIN Materijal AS m ON sk.IDMaterijal = m.IDMaterijal\par
+\tab WHERE IDKorisnik = @IDKorisnik AND Neaktivan = 0\par
+\tab ORDER BY sk.DatumVremeSkeniranje DESC\par
+END\par
+GO\par
+/****** Object:  StoredProcedure [dbo].[sp_DajSveZoneZaCmb]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+-- =============================================\par
+-- Author:\tab\tab <Author,,Name>\par
+-- Create date: <Create Date,,>\par
+-- Description:\tab <Description,,>\par
+-- =============================================\par
+CREATE PROCEDURE [dbo].[sp_DajSveZoneZaCmb]\par
+\tab -- Add the parameters for the stored procedure here\par
+\tab\par
+AS\par
+BEGIN\par
+\tab -- SET NOCOUNT ON added to prevent extra result sets from\par
+\tab -- interfering with SELECT statements.\par
+\tab SET NOCOUNT ON;\par
+\par
+    -- Insert statements for procedure here\par
+\tab SELECT * FROM Zona\par
+END\par
+GO\par
+/****** Object:  StoredProcedure [dbo].[sp_DajSveZoneZaCmbPremaProjektu]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+-- =============================================\par
+-- Author:\tab\tab <Author,,Name>\par
+-- Create date: <Create Date,,>\par
+-- Description:\tab <Description,,>\par
+-- =============================================\par
+CREATE PROCEDURE [dbo].[sp_DajSveZoneZaCmbPremaProjektu]\par
+\tab -- Add the parameters for the stored procedure here\par
+\tab @IDProjekat int\par
+AS\par
+BEGIN\par
+\tab -- SET NOCOUNT ON added to prevent extra result sets from\par
+\tab -- interfering with SELECT statements.\par
+\tab SET NOCOUNT ON;\par
+\par
+    -- Insert statements for procedure here\par
+\tab SELECT z.IDZona, z.NazivZone FROM ZonaProjekat AS zp\par
+\tab INNER JOIN Projekat AS p ON p.IDProjekat = zp.IDProjekat\par
+\tab INNER JOIN Zona AS z ON z.IDZona = zp.IDZona\par
+\tab WHERE zp.IDProjekat = @IDProjekat\par
+END\par
+GO\par
+/****** Object:  StoredProcedure [dbo].[sp_DodajSkeniranje]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+-- =============================================\par
+-- Author:\tab\tab <Author,,Name>\par
+-- Create date: <Create Date,,>\par
+-- Description:\tab <Description,,>\par
+-- =============================================\par
+CREATE PROCEDURE [dbo].[sp_DodajSkeniranje]\par
+\tab -- Add the parameters for the stored procedure here\par
+\tab @IDKorisnik int,\par
+\tab @OznakaMaterijala nvarchar(50),\par
+\tab @Kolicina int,\par
+\tab @Komentar nvarchar(250) = NULL,\par
+\tab @IDProjekat int,\par
+\tab @IDZona int\par
+\tab\par
+AS\par
+BEGIN\par
+\tab -- SET NOCOUNT ON added to prevent extra result sets from\par
+\tab -- interfering with SELECT statements.\par
+\tab SET NOCOUNT ON;\par
+\par
+    -- Insert statements for procedure here\par
+\tab DECLARE @IDMaterijal int\par
+\tab SET @IDMaterijal = [dbo].[NadjiIDMaterijalaPrekoOznake](@OznakaMaterijala)\par
+\tab IF @IDMaterijal = 0\par
+\tab BEGIN\par
+\tab\tab RAISERROR ('Materijal pod tom oznakom ne postoji.', 11, 1) \par
+\tab END\par
+\par
+\tab INSERT INTO dbo.Skeniranje\par
+\tab (\par
+\tab     --IDSkeniranje - column value is auto-generated\par
+\tab     IDKorisnik,\par
+\tab     IDMaterijal,\par
+\tab     Kolicina,\par
+\tab     DatumVremeSkeniranje,\par
+\tab     Komentar,\par
+\tab     Neaktivan,\par
+\tab     DatumVremeUpdate,\par
+\tab\tab IDProjekat,\par
+\tab\tab IDZona\par
+\tab )\par
+\tab VALUES\par
+\tab (\par
+\tab     -- IDSkeniranje - int\par
+\tab     @IDKorisnik, -- IDKorisnik - int\par
+\tab     @IDMaterijal, -- IDMaterijal - int\par
+\tab     @Kolicina, -- Kolicina - int\par
+\tab     dbo.GetDateTimePopis(), -- DatumVremeSkeniranje - datetime\par
+\tab     @Komentar, -- Komentar - nvarchar\par
+\tab     0, -- Neaktivan - int\par
+\tab     dbo.GetDateTimePopis(), -- DatumVremeUpdate - datetime\par
+\tab\tab @IDProjekat,\par
+\tab\tab @IDZona\par
+\tab )\par
+END\par
+GO\par
+/****** Object:  StoredProcedure [dbo].[sp_Izvestaj]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+-- =============================================\par
+-- Author:\tab\tab <Author,,Name>\par
+-- Create date: <Create Date,,>\par
+-- Description:\tab <Description,,>\par
+-- =============================================\par
+CREATE PROCEDURE [dbo].[sp_Izvestaj]\par
+\tab -- Add the parameters for the stored procedure here\par
+\tab\par
+AS\par
+BEGIN\par
+\tab -- SET NOCOUNT ON added to prevent extra result sets from\par
+\tab -- interfering with SELECT statements.\par
+\tab SET NOCOUNT ON;\par
+\par
+    -- Insert statements for procedure here\par
+\tab SELECT MIN(m.OznakaMaterijala) AS OznakaMaterijala, SUM(Kolicina) AS Kolicina FROM Skeniranje AS s\par
+\tab INNER JOIN Materijal AS m ON s.IDMaterijal = m.IDMaterijal\par
+\tab WHERE s.Neaktivan = 0\par
+\tab GROUP BY s.IDMaterijal\par
+\tab\par
+END\par
+GO\par
+/****** Object:  StoredProcedure [dbo].[sp_ObrisiSkeniranje]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+-- =============================================\par
+-- Author:\tab\tab <Author,,Name>\par
+-- Create date: <Create Date,,>\par
+-- Description:\tab <Description,,>\par
+-- =============================================\par
+CREATE PROCEDURE [dbo].[sp_ObrisiSkeniranje]\par
+\tab -- Add the parameters for the stored procedure here\par
+\tab @IDSkeniranje int\par
+AS\par
+BEGIN\par
+\tab -- SET NOCOUNT ON added to prevent extra result sets from\par
+\tab -- interfering with SELECT statements.\par
+\tab SET NOCOUNT ON;\par
+\par
+    -- Insert statements for procedure here\par
+\tab UPDATE Skeniranje\par
+\tab SET Neaktivan = 1, DatumVremeUpdate = dbo.GetDateTimePopis()\par
+\tab WHERE IDSkeniranje = @IDSkeniranje\par
+END\par
+GO\par
+/****** Object:  StoredProcedure [dbo].[sp_PrijavaKorisnika]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+-- =============================================\par
+-- Author:\tab\tab <Author,,Name>\par
+-- Create date: <Create Date,,>\par
+-- Description:\tab <Description,,>\par
+-- =============================================\par
+CREATE PROCEDURE [dbo].[sp_PrijavaKorisnika]\par
+\tab -- Add the parameters for the stored procedure here\par
+\tab @IDKartica int\par
+AS\par
+BEGIN\par
+\tab -- SET NOCOUNT ON added to prevent extra result sets from\par
+\tab -- interfering with SELECT statements.\par
+\tab SET NOCOUNT ON;\par
+\par
+    -- Insert statements for procedure here\par
+\tab SELECT * FROM Korisnik\par
+\tab WHERE IDKartica = @IDKartica\par
+\par
+\tab INSERT INTO dbo.IstorijaPrijave\par
+\tab (\par
+\tab     IDKartica,\par
+\tab     DatumVreme\par
+\tab )\par
+\tab VALUES\par
+\tab (   @IDKartica,        -- IDKorisnik - int\par
+\tab     DATEADD(HOUR, 9, GETDATE()) -- DatumVreme - datetime\par
+\tab     )\par
+END\par
+GO\par
+/****** Object:  StoredProcedure [dbo].[sp_VratiPodatke]    Script Date: 07-Apr-20 21:13:11 ******/\par
+SET ANSI_NULLS ON\par
+GO\par
+SET QUOTED_IDENTIFIER ON\par
+GO\par
+-- =============================================\par
+-- Author:\tab\tab <Author,,Name>\par
+-- Create date: <Create Date,,>\par
+-- Description:\tab <Description,,>\par
+-- =============================================\par
+CREATE PROCEDURE [dbo].[sp_VratiPodatke]\par
+\tab -- Add the parameters for the stored procedure here\par
+\tab @IDProjekat int,\par
+\tab @IDZona int,\par
+\tab @IDKorisnik int\par
+AS\par
+BEGIN\par
+\tab -- SET NOCOUNT ON added to prevent extra result sets from\par
+\tab -- interfering with SELECT statements.\par
+\tab SET NOCOUNT ON;\par
+\par
+    -- Insert statements for procedure here\par
+\tab SELECT * FROM Projekat AS P\par
+\tab WHERE p.IDProjekat = @IDProjekat;\par
+\par
+\tab SELECT * FROM Zona As z\par
+\tab WHERE z.IDZona = @IDZona;\par
+\par
+\tab SELECT Ime + ' ' + Prezime AS Ime FROM Korisnik AS k\par
+\tab WHERE k.IDKorisnik = @IDKorisnik;\par
+END\par
+GO\par
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]\par
+Begin DesignProperties = \par
+   Begin PaneConfigurations = \par
+      Begin PaneConfiguration = 0\par
+         NumPanes = 4\par
+         Configuration = "(H (1[40] 4[20] 2[20] 3) )"\par
+      End\par
+      Begin PaneConfiguration = 1\par
+         NumPanes = 3\par
+         Configuration = "(H (1 [50] 4 [25] 3))"\par
+      End\par
+      Begin PaneConfiguration = 2\par
+         NumPanes = 3\par
+         Configuration = "(H (1 [50] 2 [25] 3))"\par
+      End\par
+      Begin PaneConfiguration = 3\par
+         NumPanes = 3\par
+         Configuration = "(H (4 [30] 2 [40] 3))"\par
+      End\par
+      Begin PaneConfiguration = 4\par
+         NumPanes = 2\par
+         Configuration = "(H (1 [56] 3))"\par
+      End\par
+      Begin PaneConfiguration = 5\par
+         NumPanes = 2\par
+         Configuration = "(H (2 [66] 3))"\par
+      End\par
+      Begin PaneConfiguration = 6\par
+         NumPanes = 2\par
+         Configuration = "(H (4 [50] 3))"\par
+      End\par
+      Begin PaneConfiguration = 7\par
+         NumPanes = 1\par
+         Configuration = "(V (3))"\par
+      End\par
+      Begin PaneConfiguration = 8\par
+         NumPanes = 3\par
+         Configuration = "(H (1[56] 4[18] 2) )"\par
+      End\par
+      Begin PaneConfiguration = 9\par
+         NumPanes = 2\par
+         Configuration = "(H (1 [75] 4))"\par
+      End\par
+      Begin PaneConfiguration = 10\par
+         NumPanes = 2\par
+         Configuration = "(H (1[66] 2) )"\par
+      End\par
+      Begin PaneConfiguration = 11\par
+         NumPanes = 2\par
+         Configuration = "(H (4 [60] 2))"\par
+      End\par
+      Begin PaneConfiguration = 12\par
+         NumPanes = 1\par
+         Configuration = "(H (1) )"\par
+      End\par
+      Begin PaneConfiguration = 13\par
+         NumPanes = 1\par
+         Configuration = "(V (4))"\par
+      End\par
+      Begin PaneConfiguration = 14\par
+         NumPanes = 1\par
+         Configuration = "(V (2))"\par
+      End\par
+      ActivePaneConfig = 0\par
+   End\par
+   Begin DiagramPane = \par
+      Begin Origin = \par
+         Top = 0\par
+         Left = 0\par
+      End\par
+      Begin Tables = \par
+         Begin Table = "zp"\par
+            Begin Extent = \par
+               Top = 6\par
+               Left = 38\par
+               Bottom = 136\par
+               Right = 208\par
+            End\par
+            DisplayFlags = 280\par
+            TopColumn = 0\par
+         End\par
+         Begin Table = "z"\par
+            Begin Extent = \par
+               Top = 6\par
+               Left = 246\par
+               Bottom = 102\par
+               Right = 416\par
+            End\par
+            DisplayFlags = 280\par
+            TopColumn = 0\par
+         End\par
+         Begin Table = "p"\par
+            Begin Extent = \par
+               Top = 6\par
+               Left = 454\par
+               Bottom = 102\par
+               Right = 624\par
+            End\par
+            DisplayFlags = 280\par
+            TopColumn = 0\par
+         End\par
+      End\par
+   End\par
+   Begin SQLPane = \par
+   End\par
+   Begin DataPane = \par
+      Begin ParameterDefaults = ""\par
+      End\par
+   End\par
+   Begin CriteriaPane = \par
+      Begin ColumnWidths = 11\par
+         Column = 1440\par
+         Alias = 900\par
+         Table = 1170\par
+         Output = 720\par
+         Append = 1400\par
+         NewValue = 1170\par
+         SortType = 1350\par
+         SortOrder = 1410\par
+         GroupBy = 1350\par
+         Filter = 1350\par
+         Or = 1350\par
+         Or = 1350\par
+         Or = 1350\par
+      End\par
+   End\par
+End\par
+' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'ProjekatZona'\par
+GO\par
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'ProjekatZona'\par
+GO\par
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]\par
+Begin DesignProperties = \par
+   Begin PaneConfigurations = \par
+      Begin PaneConfiguration = 0\par
+         NumPanes = 4\par
+         Configuration = "(H (1[40] 4[20] 2[20] 3) )"\par
+      End\par
+      Begin PaneConfiguration = 1\par
+         NumPanes = 3\par
+         Configuration = "(H (1 [50] 4 [25] 3))"\par
+      End\par
+      Begin PaneConfiguration = 2\par
+         NumPanes = 3\par
+         Configuration = "(H (1 [50] 2 [25] 3))"\par
+      End\par
+      Begin PaneConfiguration = 3\par
+         NumPanes = 3\par
+         Configuration = "(H (4 [30] 2 [40] 3))"\par
+      End\par
+      Begin PaneConfiguration = 4\par
+         NumPanes = 2\par
+         Configuration = "(H (1 [56] 3))"\par
+      End\par
+      Begin PaneConfiguration = 5\par
+         NumPanes = 2\par
+         Configuration = "(H (2 [66] 3))"\par
+      End\par
+      Begin PaneConfiguration = 6\par
+         NumPanes = 2\par
+         Configuration = "(H (4 [50] 3))"\par
+      End\par
+      Begin PaneConfiguration = 7\par
+         NumPanes = 1\par
+         Configuration = "(V (3))"\par
+      End\par
+      Begin PaneConfiguration = 8\par
+         NumPanes = 3\par
+         Configuration = "(H (1[56] 4[18] 2) )"\par
+      End\par
+      Begin PaneConfiguration = 9\par
+         NumPanes = 2\par
+         Configuration = "(H (1 [75] 4))"\par
+      End\par
+      Begin PaneConfiguration = 10\par
+         NumPanes = 2\par
+         Configuration = "(H (1[66] 2) )"\par
+      End\par
+      Begin PaneConfiguration = 11\par
+         NumPanes = 2\par
+         Configuration = "(H (4 [60] 2))"\par
+      End\par
+      Begin PaneConfiguration = 12\par
+         NumPanes = 1\par
+         Configuration = "(H (1) )"\par
+      End\par
+      Begin PaneConfiguration = 13\par
+         NumPanes = 1\par
+         Configuration = "(V (4))"\par
+      End\par
+      Begin PaneConfiguration = 14\par
+         NumPanes = 1\par
+         Configuration = "(V (2))"\par
+      End\par
+      ActivePaneConfig = 0\par
+   End\par
+   Begin DiagramPane = \par
+      Begin Origin = \par
+         Top = 0\par
+         Left = 0\par
+      End\par
+      Begin Tables = \par
+         Begin Table = "s"\par
+            Begin Extent = \par
+               Top = 6\par
+               Left = 38\par
+               Bottom = 136\par
+               Right = 251\par
+            End\par
+            DisplayFlags = 280\par
+            TopColumn = 0\par
+         End\par
+         Begin Table = "m"\par
+            Begin Extent = \par
+               Top = 6\par
+               Left = 289\par
+               Bottom = 102\par
+               Right = 469\par
+            End\par
+            DisplayFlags = 280\par
+            TopColumn = 0\par
+         End\par
+         Begin Table = "k"\par
+            Begin Extent = \par
+               Top = 6\par
+               Left = 507\par
+               Bottom = 102\par
+               Right = 677\par
+            End\par
+            DisplayFlags = 280\par
+            TopColumn = 0\par
+         End\par
+      End\par
+   End\par
+   Begin SQLPane = \par
+   End\par
+   Begin DataPane = \par
+      Begin ParameterDefaults = ""\par
+      End\par
+   End\par
+   Begin CriteriaPane = \par
+      Begin ColumnWidths = 11\par
+         Column = 1440\par
+         Alias = 900\par
+         Table = 1170\par
+         Output = 720\par
+         Append = 1400\par
+         NewValue = 1170\par
+         SortType = 1350\par
+         SortOrder = 1410\par
+         GroupBy = 1350\par
+         Filter = 1350\par
+         Or = 1350\par
+         Or = 1350\par
+         Or = 1350\par
+      End\par
+   End\par
+End\par
+' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'SkeniranjeView'\par
+GO\par
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'SkeniranjeView'\par
+GO\par
+USE [master]\par
+GO\par
+ALTER DATABASE [Popis] SET  READ_WRITE \par
+GO\f0\par
+}
+ 
