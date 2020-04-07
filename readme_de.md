@@ -1,3 +1,5 @@
+# Inventory Companion - Inventur-Anwendung
+
 *Wählen Sie Ihre Sprache aus* ||
 [English]( https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/readme_en.md "english") ||
 [Deutsch]( https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/readme_de.md "deutsch") ||
