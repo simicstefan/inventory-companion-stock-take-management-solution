@@ -24,7 +24,7 @@ git clone https://github.com/simicstefan/inventory-companion-stock-take-manageme
 ![Dodavanje novog unosa]( https://user-images.githubusercontent.com/34691870/78506272-c8640380-7778-11ea-98e4-85f1a103dbc7.png)  
 *Figure 3 Dodavanje novog unosa*
 
-![Pregled skeniranih količina] ( https://user-images.githubusercontent.com/34691870/78506273-c8fc9a00-7778-11ea-8a8d-a061105fc900.png)  
+![Pregled skeniranih količina]( https://user-images.githubusercontent.com/34691870/78506273-c8fc9a00-7778-11ea-8a8d-a061105fc900.png)
 *Figure 4 Pregled skeniranih količina*
 
 ![excel izvoz]( https://user-images.githubusercontent.com/34691870/78506274-c9953080-7778-11ea-8bf7-4525dfe398ed.png)  
