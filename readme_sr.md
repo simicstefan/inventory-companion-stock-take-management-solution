@@ -1,4 +1,5 @@
 # Inventory Companion - Web aplikacija za popisivanje zaliha
+## test
 
 *Odaberite jezik* ||
 [English]( https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/readme_en.md "english") ||
