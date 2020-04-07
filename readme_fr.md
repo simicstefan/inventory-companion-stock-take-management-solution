@@ -1,4 +1,4 @@
-* Choisissez votre langue* ||
+*Choisissez votre langue* ||
 [English]( https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/readme_en.md "english") ||
 [Deutsch]( https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/readme_de.md "deutsch") ||
 [Français]( https://github.com/simicstefan/inventory-companion-stock-take-management-solution/blob/master/readme_fr.md "fran‡ais") ||
